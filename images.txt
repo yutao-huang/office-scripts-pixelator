@@ -1,0 +1,15 @@
+const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Embroidery-christmas-candles.jpg/120px-Embroidery-christmas-candles.jpg"; // Candles
+
+const imageUrl = "https://image.shutterstock.com/image-photo/image-150nw-519508420.jpg"
+
+const imageUrl = "https://thumbs.dreamstime.com/t/illustration-cartoon-happy-santa-claus-waving-cartoon-happy-santa-claus-waving-134078727.jpg";   // Santa waving
+
+const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E="; // Santa kicking
+
+const imageUrl = "https://thumbs.dreamstime.com/t/santa-claus-bag-gifts-isolated-vector-christmas-illustration-cheerful-running-santa-claus-bag-gifts-134340682.jpg"; // Santa backpack
+
+const imageUrl = "https://media.istockphoto.com/vectors/-vector-id855125150?k=6&m=855125150&s=612x612&w=0&h=7V2qAq_qxHxmz7aUrwdSlg8sRkeTEz1y-6iaD3uEs5g="; // Christmas tree
+
+const imageUrl = "http://st.depositphotos.com/1079320/3130/i/170/depositphotos_31301039-Winter-snow-sun-and-fun-Christmas---happy-snowman-friends.jpg"; // Snowmen
+
+const imageUrl = "http://christmasstockimages.com/free/backgrounds/thumbs/babules_stars_background.jpg";
