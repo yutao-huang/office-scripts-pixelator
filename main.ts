@@ -1,4 +1,24 @@
-const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E="; // Santa kicking
+// const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Embroidery-christmas-candles.jpg/120px-Embroidery-christmas-candles.jpg"; // Candles
+
+// const imageUrl = "https://thumbs.dreamstime.com/t/illustration-cartoon-happy-santa-claus-waving-cartoon-happy-santa-claus-waving-134078727.jpg";   // Santa waving
+
+// const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E="; // Santa kicking
+
+// const imageUrl = "https://thumbs.dreamstime.com/t/santa-claus-bag-gifts-isolated-vector-christmas-illustration-cheerful-running-santa-claus-bag-gifts-134340682.jpg"; // Santa backpack
+
+// const imageUrl = "https://media.istockphoto.com/vectors/-vector-id855125150?k=6&m=855125150&s=612x612&w=0&h=7V2qAq_qxHxmz7aUrwdSlg8sRkeTEz1y-6iaD3uEs5g="; // Christmas tree
+
+// const imageUrl = "http://st.depositphotos.com/1079320/3130/i/170/depositphotos_31301039-Winter-snow-sun-and-fun-Christmas---happy-snowman-friends.jpg"; // Snowmen
+
+// const imageUrl = "http://christmasstockimages.com/free/backgrounds/thumbs/babules_stars_background.jpg";
+
+// const imageUrl = "https://www.christmasstockimages.com/free/decorations/thumbs/christmas_baubles.jpg";
+
+// const imageUrl = "http://www.icondrawer.com/img/free_img/Christmas_icons.jpg"; // icons
+
+const imageUrl = "https://www.telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/cat-christmas-tree.jpg"; // cat
+
+// const imageUrl = "https://i.pinimg.com/736x/b5/46/f5/b546f55e5d89f279bda2460c53f6dc21--christmas-clipart-christmas-graphics.jpg";
 
 async function main(workbook: ExcelScript.Workbook): Promise<void> {
   let sheet = workbook.addWorksheet();
@@ -9,7 +29,7 @@ async function main(workbook: ExcelScript.Workbook): Promise<void> {
   await renderImage(sheet, image);
 }
 
-const MAX_IMAGE_WIDTH = 240;
+const MAX_IMAGE_WIDTH = 160;
 const MAX_IMAGE_HEIGHT = 120;
 const UNIT_WIDTH = 30;
 const UNIT_HEIGHT = 30;
@@ -41,10 +61,10 @@ async function renderImage(sheet: ExcelScript.Worksheet, image: ImageInfo): Prom
 
         for (let row = y * UNIT_HEIGHT; row < Math.min((y + 1) * UNIT_HEIGHT, image.resizedHeight); row++) {
           for (let column = x * UNIT_WIDTH; column < Math.min((x + 1) * UNIT_WIDTH, image.resizedWidth); column++) {
-            const hex =
-              decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4], 2) +
-              decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4 + 1], 2) +
-              decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4 + 2], 2);
+            const red = decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4], 2);
+            const green = decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4 + 1], 2);
+            const blue = decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4 + 2], 2);
+            const hex = `#${red}${green}${blue}`;
 
             currentColor = hex;
             currentRow = row;
@@ -92,12 +112,12 @@ class ImageInfo {
 
     if (this.resizedWidth > MAX_IMAGE_WIDTH) {
       this.resizedWidth = MAX_IMAGE_WIDTH;
-      this.resizedHeight = Math.ceil(this.resizedWidth * this.originalHeight / this.originalWidth);
+      this.resizedHeight = Math.floor(this.resizedWidth * this.originalHeight / this.originalWidth);
     }
 
     if (this.resizedHeight > MAX_IMAGE_HEIGHT) {
       this.resizedHeight = MAX_IMAGE_HEIGHT;
-      this.resizedWidth = Math.ceil(this.resizedHeight * this.originalWidth / this.originalHeight);
+      this.resizedWidth = Math.floor(this.resizedHeight * this.originalWidth / this.originalHeight);
     }
   }
 
@@ -114,6 +134,7 @@ function sleep(milliseconds: number) {
 }
 
 function decimalToHex(decimal: number, padding: number = 2): string {
+  decimal = Math.max(0, Math.min(255, decimal));
   var hex = Number(decimal).toString(16);
   while (hex.length < padding) {
     hex = "0" + hex;
