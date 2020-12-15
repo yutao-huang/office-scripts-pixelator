@@ -1,3 +1,5 @@
+const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E=";
+
 async function main(workbook: ExcelScript.Workbook): Promise<void> {
   let sheet = workbook.addWorksheet();
   sheet.activate();
@@ -6,8 +8,6 @@ async function main(workbook: ExcelScript.Workbook): Promise<void> {
 
   await renderImage(sheet, image);
 }
-
-const imageUrl = "https://www.turnbacktogod.com/wp-content/uploads/2008/12/christmas-animated-gifs-06.gif";
 
 const MAX_IMAGE_WIDTH = 120;
 const MAX_IMAGE_HEIGHT = 100;
@@ -136,7 +136,7 @@ function columnToCanonical(column: number): string {
 
 // const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E="; // Santa kicking
 
-// const imageUrl = "https://thumbs.dreamstime.com/t/santa-claus-bag-gifts-isolated-vector-christmas-illustration-cheerful-running-santa-claus-bag-gifts-134340682.jpg"; // Santa backpack
+// const imageUrl = "https://thumbs.dreamstime.com/t/santa-claus-bag-gifts-isolated-vector-christmas-illustration-cheerful-running-santa-claus-bag-gifts-134340682.jpg"; // Running Santa
 
 // const imageUrl = "https://media.istockphoto.com/vectors/-vector-id855125150?k=6&m=855125150&s=612x612&w=0&h=7V2qAq_qxHxmz7aUrwdSlg8sRkeTEz1y-6iaD3uEs5g="; // Christmas tree
 
