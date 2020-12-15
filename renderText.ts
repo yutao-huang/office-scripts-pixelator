@@ -1,4 +1,8 @@
-const text = "Hello world!";
+const text = "Office Scripts";
+const fontSize = 32;
+const margin = 4;
+const renderRainbowColor = false;
+const textColor = "blue";
 
 async function main(workbook: ExcelScript.Workbook): Promise<void> {
   let sheet = workbook.addWorksheet();
@@ -62,13 +66,13 @@ async function renderText(sheet: ExcelScript.Worksheet, image: ImageInfo): Promi
     }
   } catch (ex) {
     console.log("Failed to render!", ex, `(${currentColumn}, ${currentRow}) - ${currentColor}`);
+  } finally {
+    console.log("DONE!");
   }
 }
 
 class ImageInfo {
   public static fromText(text: string): ImageInfo {
-    const fontSize = 32;
-    const margin = 8;
     let canvas = new globalThis.OffscreenCanvas(2048, 2048);
     let context2d = canvas.getContext("2d");
     context2d.fillStyle = "white";
@@ -80,11 +84,16 @@ class ImageInfo {
     const textWidth = Math.ceil(metrics.width);
     const textHeight = fontSize;
 
-    var gradient = context2d.createLinearGradient(0, 0, textWidth, textHeight);
-    gradient.addColorStop(0, "rgb(255, 0, 0)");
-    gradient.addColorStop(0.5, "rgb(0, 255, 0)");
-    gradient.addColorStop(1, "rgb(0, 0, 255)");
-    context2d.fillStyle = gradient;
+    if (renderRainbowColor) {
+      var gradient = context2d.createLinearGradient(0, 0, textWidth, textHeight);
+      gradient.addColorStop(0, "rgb(255, 0, 0)");
+      gradient.addColorStop(0.5, "rgb(0, 255, 0)");
+      gradient.addColorStop(1, "rgb(0, 0, 255)");
+      context2d.fillStyle = gradient;
+    } else {
+      context2d.fillStyle = textColor;
+    }
+
     context2d.fillText(text, margin, textHeight + margin);
 
     const imageWidth = textWidth + margin * 2;
