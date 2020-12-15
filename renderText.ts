@@ -1,15 +1,14 @@
-const text = "Office Scripts";
-const fontSize = 32;
+const text = "Office Scripts Rocks!";
+const fontSize = 24;
 const margin = 4;
-const renderRainbowColor = false;
+const renderRainbowColor = true;
 const textColor = "blue";
 
 async function main(workbook: ExcelScript.Workbook): Promise<void> {
   let sheet = workbook.addWorksheet();
   sheet.activate();
 
-  const image = ImageInfo.fromText(text);
-  await renderText(sheet, image);
+  await renderText(sheet, text);
 }
 
 const MAX_IMAGE_WIDTH = 120;
@@ -22,7 +21,10 @@ const OFFSET_X = 0;
 const OFFSET_Y = 0;
 const BREATHING_MILLISECONDS = 3000;
 
-async function renderText(sheet: ExcelScript.Worksheet, image: ImageInfo): Promise<void> {
+async function renderText(sheet: ExcelScript.Worksheet, text: string): Promise<void> {
+
+  const image = ImageInfo.fromText(text);
+
   let address = `${columnToCanonical(0)}${1}:${columnToCanonical(image.width + OFFSET_X - 1)}${image.height + OFFSET_Y}`
   let canvas = sheet.getRange(address);
   let format = canvas.getFormat();
