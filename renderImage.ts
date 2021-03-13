@@ -1,22 +1,32 @@
+// Office Scripts Image Renderer
+
+// Update this to an online image you want to render
 const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E=";
 
 async function main(workbook: ExcelScript.Workbook): Promise<void> {
   let sheet = workbook.addWorksheet();
   sheet.activate();
 
-  let image = await ImageInfo.fromUrl(`https://sofetch.glitch.me/${encodeURI(imageUrl)}`);
+  let image = await ImageInfo.fromUrl(imageUrl);
 
   await renderImage(sheet, image);
 }
 
+// Update these two for the maximum output dimension (number of columns/rows)
+// The rendering might fail if it's too big.
 const MAX_IMAGE_WIDTH = 120;
-const MAX_IMAGE_HEIGHT = 100;
-const UNIT_WIDTH = 30;
-const UNIT_HEIGHT = 30;
+const MAX_IMAGE_HEIGHT = 120;
+
+// Update these two for the size of each cell
 const CELL_WIDTH = 4;
 const CELL_HEIGHT = 4;
+
+// Update these two to determine where to put the image's top-left corner
 const OFFSET_X = 0;
 const OFFSET_Y = 0;
+
+const UNIT_WIDTH = 30;
+const UNIT_HEIGHT = 30;
 const BREATHING_MILLISECONDS = 3000;
 
 async function renderImage(sheet: ExcelScript.Worksheet, image: ImageInfo): Promise<void> {
@@ -42,7 +52,12 @@ async function renderImage(sheet: ExcelScript.Worksheet, image: ImageInfo): Prom
             const red = decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4], 2);
             const green = decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4 + 1], 2);
             const blue = decimalToHex(image.pixels[row * image.resizedWidth * 4 + column * 4 + 2], 2);
-            const hex = `#${red}${green}${blue}`;
+
+            const hex = `#${red}${green}${blue}`.toLowerCase();
+
+            if (hex === "#ffffff" || hex === "#nannannan") {
+              continue;
+            }
 
             currentColor = hex;
             currentRow = row;
@@ -53,7 +68,7 @@ async function renderImage(sheet: ExcelScript.Worksheet, image: ImageInfo): Prom
         }
 
         if (y < rowPasses - 1 || x < columnPasses - 1) {
-          // console.log("Breathing...");
+          console.log("Breathing...");
           await sleep(BREATHING_MILLISECONDS);
         }
       }
@@ -71,6 +86,7 @@ class ImageInfo {
   resizedHeight: number;
 
   static async fromUrl(imageUrl: string): Promise<ImageInfo> {
+    // Bypass CORS
     let fetchResult = await fetch(`https://sofetch.glitch.me/${encodeURI(imageUrl)}`);
     let blob = await fetchResult.blob();
     let imageBitmap = await globalThis.createImageBitmap(blob);
@@ -129,33 +145,3 @@ function columnToCanonical(column: number): string {
   }
   return column_part;
 }
-
-// const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Embroidery-christmas-candles.jpg/120px-Embroidery-christmas-candles.jpg"; // Candles
-
-// const imageUrl = "https://thumbs.dreamstime.com/t/illustration-cartoon-happy-santa-claus-waving-cartoon-happy-santa-claus-waving-134078727.jpg";   // Santa waving
-
-// const imageUrl = "https://media.gettyimages.com/vectors/santa-klaus-jump-kick-vector-id499768808?b=1&k=6&m=499768808&s=170x170&h=O1c06OT0PBVrOI8rVmIzWGq_3n8534TXF60f0SFpG8E="; // Santa kicking
-
-// const imageUrl = "https://thumbs.dreamstime.com/t/santa-claus-bag-gifts-isolated-vector-christmas-illustration-cheerful-running-santa-claus-bag-gifts-134340682.jpg"; // Running Santa
-
-// const imageUrl = "https://media.istockphoto.com/vectors/-vector-id855125150?k=6&m=855125150&s=612x612&w=0&h=7V2qAq_qxHxmz7aUrwdSlg8sRkeTEz1y-6iaD3uEs5g="; // Christmas tree
-
-// const imageUrl = "http://st.depositphotos.com/1079320/3130/i/170/depositphotos_31301039-Winter-snow-sun-and-fun-Christmas---happy-snowman-friends.jpg"; // Snowmen
-
-// const imageUrl = "http://christmasstockimages.com/free/backgrounds/thumbs/babules_stars_background.jpg";
-
-// const imageUrl = "https://www.christmasstockimages.com/free/decorations/thumbs/christmas_baubles.jpg";
-
-// const imageUrl = "http://www.icondrawer.com/img/free_img/Christmas_icons.jpg"; // icons
-
-// const imageUrl = "https://www.telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/cat-christmas-tree.jpg"; // cat
-
-// const imageUrl = "https://i.pinimg.com/736x/b5/46/f5/b546f55e5d89f279bda2460c53f6dc21--christmas-clipart-christmas-graphics.jpg";
-
-// const imageUrl = "https://inspirepattaya.com/wp-content/uploads/pickings-merry-christmas.png"; // Merry Christmas
-
-// const imageUrl = "https://www.needlenthread.com/Images/Miscellaneous/Merry_Christmas_2009.jpg"; // Merry Christmas
-
-// const imageUrl = "https://i5.walmartimages.com/asr/75244ff5-0eee-4b44-94ae-273e0e318988_1.60d0d6917163e22d35ad9bc91bfe99a4.jpeg";
-
-// const imageUrl = "https://images.all-free-download.com/images/graphicthumb/christmas_night_with_snow_scenery_vector_578887.jpg";
