@@ -9,13 +9,17 @@ Please refer to <https://aka.ms/office-scripts> for more details about Office Sc
 ## Features
 
 - Render online images:
+
   ![render-image-sample](images/sample-4.png)
 
 - Render text (including emojis):
+
   ![sample-text-sample](images/sample-2.png)
 
 - You can copy/paste the rendered images or texts to get some interesting combinations:
+
   ![sample-combined-1](images/sample-3.png)
+
   ![sample-combined-2](images/sample-1.png)
 
 ## Usage
