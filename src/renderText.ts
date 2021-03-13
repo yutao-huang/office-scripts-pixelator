@@ -20,11 +20,6 @@ async function main(workbook: ExcelScript.Workbook): Promise<void> {
   await renderText(sheet, text);
 }
 
-// Update these two for the maximum output dimension (number of columns/rows)
-// The rendering might fail if it's too big.
-const MAX_IMAGE_WIDTH = 120;
-const MAX_IMAGE_HEIGHT = 120;
-
 // Update these two for the size of each cell
 const CELL_WIDTH = 4;
 const CELL_HEIGHT = 4;

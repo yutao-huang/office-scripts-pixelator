@@ -37,7 +37,6 @@ Please refer to <https://aka.ms/office-scripts> for more details about Office Sc
     - The text you want to render
     - Font size, family, style, color (single color vs. rainbow color 🌈!)
     - The size of a "pixel" - how many cells to represent a single pixel
-    - Output dimension (`number of columns * number of rows`)
 - Hit the `▶ Run` button above the code editor.
 - The rendering might take a while so take your time.
 
