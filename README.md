@@ -31,12 +31,12 @@ Please refer to <https://aka.ms/office-scripts> for more details about Office Sc
 - Follow the comments in the code to customize what and how you want to render.
   - For images, you can customize:
     - The URL to an online image you want render
-    - The size of a "pixel" - how many cells to represent a single pixel
+    - The size of a "pixel" - the dimension of a single cell
     - Output dimension (`number of columns * number of rows`)
   - For text, you can customize:
     - The text you want to render
     - Font size, family, style, color (single color vs. rainbow color 🌈!)
-    - The size of a "pixel" - how many cells to represent a single pixel
+    - The size of a "pixel" - the dimension of a single cell
 - Hit the `▶ Run` button above the code editor.
 - The rendering might take a while so take your time.
 
